@@ -1,0 +1,125 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Other Second Life concerns
+--------------------------
+
+updater object usage
+........................
+
+Whenever possible, prefer using the updater object to update existing
+Stargates instead of rezzing a new Stargate and deleting the old one.
+Every time a Stargate joins or leaves the chord network, a ripple of
+increased activity spreads across the network.  Using the updater
+object for existing Stargates is MUCH more efficient.
+
+object create permission
+........................
+
+The Stargate MUST have permission to create objects.  Generally this means
+the Stargate owner or Stargate's group must have create permission.  You can see
+these permissions in "About Land" on the "Options" tab.  Without object
+create permission, the Stargate cannot rez the event horizon or temp chevrons.
+(see also {cancrate} flag)
+
+deed to group
+.............
+
+Please do NOT deed the Stargate object to a group.  Deeding an object
+to a group changes the owner of the object to the group.  This is
+a much more complex change than simply setting the object's group,
+and introduces several problems.  If there is an issue with the Stargate,
+we won't know who to contact to resolve the issue.  Usually when someone
+does this they are trying to resolve an object create permission problem
+on group owned land.  These sorts of problems can be overcome simply by
+setting the group of the Stargate and allowing group create on the land.
+Alternately, group settings can be used to allow specific users to
+override normal object create permissions on the group owned land.
+Deeding to a group is almost never necessary.
+
+the "Locked" checkbox
+.....................
+
+Please do NOT set the "Locked" checkbox on your Stargate.  Setting the
+"Locked" checkbox interferes with the automatic update process.  It also
+interferes with the automatic script error recovery process.  In the
+"Edit" window, on the "Object" tab, make sure the "Locked" checkbox is
+NOT checked.  Since they cannot be updated, Stagates that are "Locked"
+may be deleted without notice if they cause problems in the network.
+
+obstructions around the Stargate
+................................
+
+Please do not put objects inside, over, or around the Stargate, even
+transparent ones.  Many users have tried to place transparent visitor
+counters or other semitransparent scenery objects inside, over, or
+around the Stargate for various reasons.  Such objects interfere with
+Stargate traveler's ability to touch the Event Horizon when it appears,
+even when those objects are transparent.  When they attempt to touch
+the Event Horizon, they will touch your object instead.  They will not
+see a map and will not be able to teleport.  This is normal SL behavior,
+and NOT a bug in the Open Stargate code.
+
+prim expanders
+..............
+
+Please do not use "temp-on-rezzer" or other "zero prim" or "prim expander"
+objects with your Stargate.  Your Stargate will not work with these
+objects.  You won't be able to dial out reliably, and no one will be
+able to dial in.
+
+Stargate facing
+...............
+
+Due to SL server bugs, travelers will currently always arrive facing East.
+If at all possible, place your Stargate facing east to minimize confusion
+to travelers.  The code DOES properly set the look_at parameter to
+llMapDestination(), but current SL servers ignore it.
+
+server load detection
+.....................
+
+Stargates on highly loaded regions do not respond to messages from the
+chord network in a timely manner, and will negatively impact ALL Stargates
+in the network.  Rather than let the entire network become unusable,
+the Stargate on a highly loaded region will partially disconnect from
+the network temporarily.  Stargates may still dial out, and receive
+incoming wormholes when partially connected, but will not participate
+in normal network maintainance messaging.  It will reconnect to
+the network once server load has returned to acceptable levels.
+Most users will not notice that a Stargate is partially disconnected.
+Stargates on loaded regions with partial connections will exhibit
+increased delays between dialing command, address resolution, and
+wormhole creation.  If you have this problem consistently, please see
+https://secondlife.com/community/support.php?questionID=4780
+as well as
+https://secondlife.com/community/support.php?questionID=4235
+
+keeping your Stargate address when moving
+.........................................
+
+The seven symbol Stargate address is based on a hash of the Stargate
+object's key.  Since the key changes when rezzing an object, if you take
+a Stargate into your inventory and then rez the Stargate somewhere else,
+the seven symbol address will change.  Most owners will likely not care
+about the Stargate address changing during a move.  If for some reason
+you want to maintain the Stargate address, it is necessary to maintain
+the Stargate object key.  You can do this by attaching the Stargate to
+your avatar, moving to a new location, and then dropping the Stargate.
+(see also "Gate Aliases")
+
+llGetFreeURLs() == 0
+....................
+
+The Stargate uses http_in for communication (technical details appear at
+the end of this document).  This method allots a certain number of URLs
+per parcel, the same as the prim limit.  If you see this error, some
+other object on your parcel is consuming URLs and not releasing them.
+We know it is NOT the Stargate, because we have several dozen gates
+on 4m^2 parcels (3 prim/URL limit!) that do NOT exhibit this problem.
+If you see this error, your best bet is to locate the offending object and
+delete it.  Another possible solution is to restart the region.

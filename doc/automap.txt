@@ -1,0 +1,51 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+The automap object
+------------------
+
+Touch the Stargate and select the "Automap".  The Stargate will vend you
+an automap object.  If you wear the automap object, the map will appear
+automatically when you collide with (walk through) the event horizon.
+This saves you a click, and makes the action a bit more realistic.
+You still need to click the "teleport" button on the map.
+
+Several people have asked why the automap is necessary, and why we
+can't just have "walk-through" teleports.  This is an SL limitation.
+See http://jira.secondlife.com/browse/SVC-212 for a full history on this
+subject.  Many people have pointed out that the Quantum Gate stargates
+have walk through teleport.  Strictly speaking, this is not true.
+To activate a quantum portal stargate, you need to touch the Stargate.
+The touch handler delays until a collision is detected by a second script.
+Only the person who originally touched the Stargate gets the "walk
+through teleport".  Others in the area must still touch the event horizon.
+This solution is clunky, and causes new users quite a bit of confusion.
+Rather than implement a broken and confusing solution like this, the
+Open Stargate Network encourages you to use the automap
+object, and vote for SVC-212.
+
+#@tpto support#; Some viewers (Phoenix, Restrained Life, Cool, and possibly others)
+have a feature which DOES allow forced teleports.  The
+automap object will detect this feature and use it if it is available.
+
+Note some viewers may require special steps to enable RLV.  See
+http://www.sluniverse.com/php/vb/technical-help/50799-installing-rlv-phoenix.html#post1052591
+
+#Push feature#; Inspired by scenes in the show where characters appear to
+be "pushed" out of the wormhole on arrival, one resident suggested we add
+this feature.  This feature is OFF by default.  To enable it, detach your
+automap, right click it in your inventory, select "properties" and add
+"{push}" to the description.  Now wear it again.  Push enabled automaps
+will give you a gentle push out the wormhole when you arrive, if you
+arrive close to the Stargate and if the land you arrive on allows it.
+
+#Radio feature#; The automap object also acts as a radio.
+The default radio channel is 7, and can be changed via the {radio:}
+setting in the automap object description.  If you speak on the radio
+channel (i.e. type */7 hello* in the chat bar), all others with automap
+objects set to the same channel will hear you.  This will even work
+through open wormholes.

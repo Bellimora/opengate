@@ -1,0 +1,149 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Stargate Flags
+--------------
+
+Flags are set by adding them to the description field of the object.
+All flags are case sensitive (must be lower case) and must include the
+opening and closing curly braces.
+
+{norandom} flag
+...............
+
+   If you absolutely must place your Stargate in an area not open
+   to everyone, please add the string "{norandom}" to the Stargate
+   description.  This flag will prevent your Stargate from being used
+   when travelers dial randomly.
+
+   Please note that unless you add the {norandom} flag to your Stargate,
+   travelers may arrive at your Stargate randomly and uninvited.
+   Please do not be angry with them.  If you do not want random visitors,
+   set the {norandom} flag on your Stargate.
+
+   Ditto for the various "security orbs" available.  If you're using a
+   security orb to eject random visitors, please also set the {norandom}
+   flag on your Stargate.
+
+   Double ditto for the various role play combat systems out there.
+   Random travelers will have no clue they've wandered into a role play
+   sim, and are fairly unlikely to have ever heard of whatever combat
+   system you're into.  If your estate/region/parcel has strict roleplay
+   or combat system requirements, please save potential visitors the
+   hassle and set the {norandom} flag on your Stargate.
+
+   Note the {norandom} flag ONLY affects travellers who dial randomly.
+   The Open Stargate Network does not implement any access
+   restrictions for travellers dialing by name, address, or alias.
+
+{restricted} flag
+.................
+   
+   This flag acts identically to the {norandom} flag.
+
+   The Stargate will set this flag automatically if your parcel has restricted
+   access (i.e. "ban lines").  This is done so that gate travellers dialing
+   randomly will not be sent to restricted parcels.
+
+   Setting this flag manually does NOT alter the access restrictions on your
+   parcel. Use the "About Land" / "Access" tab to alter your parcel's access
+   settings.
+
+{default} flag
+..............
+
+   If there are multiple gates in a region, {default} gates are given
+   priority when dialing that region.
+
+{secure} flag 
+..............................
+
+   A gate can be locked tight by setting the {secure} flag.  {secure} gates
+   cannot dial out, and cannot receive incoming dials.
+
+{verbose} flag -- DEBUGGING USE ONLY
+...................................
+
+   This flag produces slightly more verbose output during dialing.
+
+{textish} flag -- DEBUGGING USE ONLY
+...................................
+
+   This flag sets text on the stargate indicating status in the chord network.
+
+{debug} flag -- DEBUGGING USE ONLY
+................................
+
+   FOR DEBUGGING USE ONLY.  DO NOT SET THIS FLAG ON YOUR STARGATE.
+
+   Enables debugging output.  This is probably only useful if you are
+   debugging a serious problem and understand the source scripts.
+
+{theme:milkyway} flag
+...................
+
+   Specifies the theme being used. (See http:themes.html)
+
+{altcompat:milkyway} flag
+.........................
+
+   Specifies the channel settings used for compatability with some Alteran
+   Stargate Network products.  Valid values are shown in the table below.
+
++--------------+----------+
+| name         | base     |
++--------------+----------+
+| milkyway     | -904000  |
+| tollan       | -904000  |
+| pegasus      | -804000  |
+| caworks      | -804000  |
+| opengate     | -704000  |
+| universe     | -604000  |
+| destiny      | -604000  |
+| iconian      | -504000  |
++--------------+----------+
+
+   The altcompat flag may also be set to any integer if you want to use a
+   nonstandard base.  The Stargate will listen on the base channel number,
+   and reply on base - 1000.
+
+   To use a channel other than base - 1000 for reply, use two numbers
+   seperated by a comma.  For example, compatability with old arcturus
+   milkyway DHDs can be acheived with {altcompat:-8765,-87654}
+
+   If altcompat is not set, the theme setting is used to derive the
+   base channel number.  If the theme is not "milkyway" or "pegasus",
+   then the "opengate" base channel of -704000 is used.
+
+Various {err_*} flags
+.....................
+
+   These flags are set automatically by the Stargate when an error condition
+   is encountered.
+
+{cancreate} flag -- DEPRECATED
+..............................
+
+   THE CANCREATE FLAG HAS BEEN DEPRECATED.
+
+   The OpenGate object must have object create permission on the parcel
+   where it is located.  If it does not have object create permissions,
+   temp-on-rez chevrons will not appear, and more importantly, it will
+   not be able to rez incoming or outgoing wormholes.  Lack of object
+   create permission also interferes with the automatic updates and
+   script error recovery functions.
+
+   The Stargate will attempt to determine if it has such permission, and
+   notify you if there is a problem.  You can confirm the problem by going to
+   the Stargate and attempting to dial out.  If you get the "Opening to"
+   message, but no event horizon appears, then the Stargate does not have
+   object create permission.
+   
+   In many cases, the problem can be fixed by changing the group of the
+   Stargate to match the group of the parcel.  Deeding the Stargate to the
+   group is NOT recommended.
+

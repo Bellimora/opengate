@@ -1,0 +1,41 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Quick Links
+-----------
+
+* where to get a gate
+
+  To get your own free Open Stargate, go to
+  http://slurl.com/secondlife/Riddings/41/20/122
+  and touch the Stargate there.
+
+* where to get the source code
+
+  This file is part of the Open Stargate Distribution available at
+  http://opengate.ma8p.com/open9.tar.gz
+
+* how to join the opengate group
+
+  News and current events can be found in
+  world by joining the "opengate" group.
+  http://world.secondlife.com/group/e949df2f-ff8c-f0d3-bb17-d882466b0ddf
+
+* list of gates, map of gates, and xml list of gates
+
+  A complete list of Stargates can be found at http://opengate.ma8p.com/list.cgi
+
+  A map view of all Stargates is at http://opengate.ma8p.com/map.cgi
+
+  If you're an XML freak, you might also want to look at
+  http://opengate.ma8p.com/xml.cgi
+
+* contacting the author by email
+
+  Questions / problems / miseries / pizza / beer can be sent to
+  adam-opengate@ma8p.com
+

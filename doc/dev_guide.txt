@@ -1,0 +1,22 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+* #History#
+  http:history.html
+
+* #Special Thanks#
+  http:thanks.html
+
+* #Technical Details#
+  http:technical.html
+
+* #Lag#
+  http:lag.html
+
+* #OpenSim and Hypergrid#
+  http:opensim_hypergrid.html
+

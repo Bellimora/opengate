@@ -1,0 +1,67 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+How to use a Stargate
+---------------------
+
+There are two ways to dial an Open Network Stargate; voice command or DHD (see
+below).
+
+Once the Stargate dials, the Event Horizon (blue swirly thing) will appear.
+Click it and a map will appear.  Click the "teleport" button on the map,
+and you will teleport to your chosen destination.
+
+To acheive "walk through" teleports, see http:automap.html
+
+Voice Commands
+--------------
+
+To dial a random destination by voice, stand near the Stargate and say
+
+/dial
+
+To dial a specific destination by voice, stand near the Stargate and say
+
+/dial <alias>
+
+Where <alias> is an alias for the destination Stargate.  As an alternative
+to "/dial <alias>", the Stargates will also respond to a number of other
+dial commands.  This was done as a compatability convenience for travelers
+who may be familiar with other Stargate networks.
+
+* Slow dialing commands
+   * /s <alias>
+   * /dsgc <alias>
+   * /sgc <alias>
+* Fast dialing commands
+   * /d <alias>
+   * /dial <alias>
+   * dd:<alias>
+* Asgard dialing commands:
+   * /a <alias>
+   * /asgard <alias>
+
+An <alias> may be the region name of the Stargate (i.e. "laserlight"), the
+region name followed by the owner name (i.e. "laserlight doran zemlja"),
+a special alias (i.e. "my alias"), or a special seven symbol address.
+
+See http:alias.html for a more detailed explanation of Stargate aliases.
+
+Stargates listen to both channel 0 (the public channel) and channel 123 (for
+compatability with other Stargate networks).
+
+A complete list of Stargates can be found at
+http://opengate.ma8p.com/list.cgi
+
+DHD
+---
+
+As an alternative to voice commands, Stargates will also respond to commands
+from the symbol based DHDs.  Stargate addresses can be entered via DHD.
+A one prim sculpted symbol based reference DHD is part of the standard
+distribution, and can be found near many Stargates.
+

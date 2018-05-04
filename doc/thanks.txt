@@ -1,0 +1,35 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Special Thanks
+--------------
+
+* Micheil Merlin
+  * for an endless supply of great textures and sculpt maps
+* Montelli Vantelli
+  * for the new DHD sculpt map
+* CB Radek
+  * for starting the OpenRings project
+* Dargo Fetid
+  * for more textures
+* Crysti Thor
+  * for more textures
+* Marcus Gray
+  * for maintaing the phys/theme gallery
+* Mintopia Ambassador
+  * for blazing a trail
+* Wes Keynes
+  * for blazing a trail
+* Zachary Carter
+  * for providing a sounding board for ideas
+* Peter Lameth
+  * for support in the early days
+* Kegan Loon
+  * for support in the early days
+* Ash Qin
+  * for keeping the com lines open
+

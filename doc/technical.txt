@@ -1,0 +1,291 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+WARNING
+-------
+
+This section has not yet been updated to cover the v400 series gates.  Much of
+this information is dated.  Take it with a mountain of salt.
+
+Technical Details
+-----------------
+
+Design Goals
+............
+
+MUST HAVE:
+
+* open source
+* robust (no central points of failure)
+* scale to 1000 Stargates or more
+* scale to several dozen Stargates in use simultaneously
+* support multiple Stargates per sim
+* automatic system for the assignment of Stargate aliases
+
+NICE TO HAVE:
+
+* able to teleport to Stargates NOT IN NETWORK
+
+Communications Overview
+.......................
+
+When first starting up, the Stargate uses llRequestURL to get a URL for
+incoming http connections.
+
+It then uses the contents of the $core/SEEDS or .core/SEEDS notecard to
+get a random UUID of another Stargate.
+
+It then uses llEmail to contact the other Stargate and advertise its URL.
+
+From then on out, all communication from Stargate to Stargate is through
+llHTTPRequest(), http_request, and http_response.
+
+CHORD and Distributed Hash Tables
+.................................
+
+The Stargate network uses a variation of a distributed hash table algorithm
+known as "chord" to perform the function of resolving Stargate addresses to
+object UUID (see http://pdos.csail.mit.edu/papers/chord:sigcomm01/ ).
+This algorithm is designed to distribute information amoung a set of
+connected peers.
+
+To join the network, a new Stargate uses a static list of Stargates
+contained in the "seeds" note card.  If a Stargate drops out of the
+chord network for any reason, a random entry in the seeds list is chosen
+to reinitiate contact with the chord network.  If this contact fails,
+another random entry is chosen.
+
+On startup and every three minutes thereafter, register.lsl generates a
+series of hash values for the various names it wants to register (i.e.
+"region", "region ownerfirst ownerlast", "alias", etc..)  It then sends
+these to a connected peer as specified in the chord algorithm.
+
+Registered names are dropped from the hash table after a specific period
+of time (currently about half an hour).
+
+Typical dialing sequence
+........................
+
+A typical dialing sequence proceeds as follows:
+
+* User initiates dialing via voice command or DHD
+* Stargate hashes alias, and sends a lookup request to the connected peers
+* The Stargate responsible for the hash sends a URL in reply
+* The source Stargate sends a HELLO (HE message) to the destination Stargate
+* The destination Stargate sends a HELLOREPLY (HR message) including its location
+* The source Stargate sends a WOOSH (WO message) to open the destination event horizon
+
+Stargate to Web Server communication
+....................................
+
+The web interface is updated using HTTP.
+
+This is handled by "web.lsl" in the Stargate objects.  On startup and
+periodically thereafter, this script notifies the Web Server (via ping.cgi)
+of it's existence via HTTP.
+
+The failure of a Web Server will not at all impact the in world function of the
+Stargates in the network.
+
+Web Server Usage
+................
+
+This is accomplished via a number of perl CGI scripts which can be hosted by
+any number of web server architectures.  We currently use Apache.
+
+Web.lsl periodically contacts ping.cgi to update the Web Server with its current
+status.
+
+Logger.lsl periodically contacts log.cgi with loggable events.
+
+User interface is through list.cgi and xml.cgi
+
+Dial Home Device / DHD
+......................
+
+Every Stargate has an "address" which consists of seven astrological symbols.
+This is simply a hash of the Stargate object's key.
+
+The parser.lsl also listens on channels 123 and 34353 for commands.  dhd.lsl
+simply says a dial command on this channel to begin the dialing process.
+
+Shield / IRIS
+.............
+
+I haven't bothered with it yet.  I'm not convinced this sort of feature
+would actually see much use.
+
+Grids
+.....
+
+A Grid is an entity used to seperate sets of Stargates.  Stargate dialing
+from one Grid (including dialing "random") will only return results
+within the same Grid.
+
+Web Servers recognize the difference between the Teen Grid and the Main
+Grid.  The code should work equally well on both.  The list available in
+the web interface will show Stargates on both Grids, but with different
+icons.
+
+The Open Stargate Project is currently looking for someone
+with a valid Teen Grid account to evangelize the project on the Teen Grid,
+maintain Stargates, establish vendors, etc...
+
+Additionally, external Stargate networks may be given their own virtual
+Grid.  It is possible to dial from the Open Stargate Network
+to these other grids, but a return trip might not be possible (depending
+on the Grid).  Currently only the Alteran network will allow dials back
+to the Open Stargate Network.
+
+The following virtual grids are currently active: alteran, cleary
+
+The following Stargate networks do not make their Stargate database public,
+and are therefore not supported: arcturus, iconian, quantum portal.
+If anyone involved with these networks knows how to get a list of Stargates
+with locations, please contact Doran Zemlja.
+
+To dial out of Grid, say "/dial >gridname alias".  For example, "/dial
+>cleary aslan" will open a wormhole to a Stargate in the Aslan region on
+the Cleary Stargate Network.
+
+It is NOT possible to dial from the main grid to the teen grid. This is a
+purposeful limitation imposed by Linden Labs and there is no way around it.
+
+The various open source simulator efforts are not currently supported;  They
+do not have sufficient LSL support to run the Open Stargate
+Network code.  (See "OpenSim, OpenLife, OGP, and HyperGrid", below)
+
+Icons and graphics
+..................
+
+Icons (32x32 .PNG files) distributed with the server are part of the
+Tango Icon Library ( http://tango.freedesktop.org/Tango_Icon_Library )
+and are licensed under the Creative Commons Attribution-ShareAlike license
+( http://creativecommons.org/licenses/by-sa/2.5/ ).
+
+The stargate graphics ( Stargate.gif and
+blackring.gif / bmp ) are from the Wikimedia Commons (
+http://commons.wikimedia.org/wiki/Image:Milky_way_stargate_with_very_detailed_glyphs2.svg
+) and are licensed under the GNU Free Documentation License (
+http://en.wikipedia.org/wiki/GNU_Free_Documentation_License ).
+
+The various in world textures were donated to the project
+by Micheil Merlin, Doran Zemlja, and Dargo Fetid, Crysti Thor.
+
+LSL Documentation
+----------------- 
+
+Why does the source code look all funny?
+........................................ 
+
+People who've looked at the source code in-world have noticed that
+is pretty much unreadable.  The first question I'm asked is "why the
+obfuscated code?"
+
+I'm trying to kill several birds with one stone here.
+
+During development of the first Stargate network, I would often succumb to
+the temptation of modifying the code in world to fix bugs.  The result
+was that the online tarball would become out of sync with what was
+actually in use, and I lost much time scratching my head over which
+version was correct.
+
+Obfuscating the in world code forces me to do development out of world.
+
+There is a fair amount of shared code between the different scripts.
+On several occasions I found that I had different versions of key
+algorithms in different scripts, and this caused many headaches.  To avoid
+this, I wanted to use C/C++ style #includes and #define macros, and that
+necessitated moving to a development platform with real development tools.
+
+To some degree, obfuscated code is a natural result of using #include
+and #define macros.
+
+Often people would make changes on their objects and submit them back
+to me for inclusion in the project.  Such code had often gone through
+several iterations of copying and pasting in different tools, and it
+was often difficult to get a clean diff to figure out what had changed.
+
+Obfuscating the in world code should help reduce this problem.  I will
+no longer accept contributions that do not diff cleanly against the code
+in the distribution.
+
+Many well meaning people who used the objects in world took them apart,
+picked a single script, and found their favorite nit to pick in the name
+of readability, efficiency, reduced memory, or reduced lag, and "fixed"
+them.  They often did this without understanding the complete design,
+especially without understanding how the different scripts interoperated
+with each other, how the different objects interacted within a single
+Stargate, or how the individual Stargates interacted with each other in the
+Stargate network as a whole.  On a few occasions this led to disruptions of
+the Stargate network.  Now that the distributed chord algorithm is in use,
+these problems are magnified.
+
+Obfuscating the in world code increases the level of effort required
+to make changes, and should reduce the number of frivilous unconsidered
+changes.
+
+The raw, unobfuscated source code is available as part of the distribution
+(see the link at the beginning of this document).
+
+Development prerequisites
+......................... 
+
+You will need some sort of Unix environment.  I use Linux (
+http://www.linux.org/ ).  Cygwin ( http://www.cygwin.com/ ) on Windows
+will work just as well.
+
+Your environment must have "perl", "make", "gcc", and "lynx" installed.
+While the Makefile doesn't actually use gcc, it does use cpp (the standard
+C preprocessor), part of all gcc installations.  If you want to build
+the html version of the documentation, you will also need "txt2html"
+installed.
+
+Your environment MUST support UTF8.  The Makefiles produce .o files
+which contain UTF8 text.
+
+How do I "compile" these LSL scripts to .o files?
+.................................................
+
+If you need to ask, I assume you're running Windows and need to install
+Cygwin.  If you're running Linux, just skip down to the bit that tells
+you what to type after you've install Cgwin.
+
+* Go to http://www.cygwin.com/
+* Download and run the setup executable ( http://www.cygwin.com/setup.exe )
+* Chose most defaults (install from internet, C:\cygwin, etc...)
+* When you get to "Select Packages" make sure you install the following:
+ * Devel
+ * Perl
+* When install is done, choose Cygwin/Cygwin Bash Shell from the Start menu
+* type these commands:
+ * wget http://opengate.ma8p.com/open9.tar.gz
+ * tar -xzvf open9.tar.gz
+ * cd open9
+ * make
+
+It's that easy.  The compiled .o files are now in the directories next to
+their .lsl files.  If you change any .lsl files, you'll need to type "make"
+again to rebuild the .o files.
+
+Can't I just use the .lsl files?
+................................
+
+No.  They won't compile, you'll have a ton of undefined symbols.  Some of
+them, like the menu.msl file, aren't even LSL.
+
+Etiquette
+--------- 
+
+Your Open Stargate will be one small part of a *network* of Stargates.
+Modifications to your Stargate which cause problems with the network
+and other users' enjoyment of the system will result in your gate being
+deleted without warning.
+
+Please conduct all tests responsibly, in an isolated manner that does not
+interfere with the rest of the network.
+

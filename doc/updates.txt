@@ -1,0 +1,25 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Automatic Updates
+-----------------
+
+Because all gates must work together in a network, it is sometimes
+necessary to update software on all gates to correct bugs which affect
+the entire network.
+
+From time to time, members of the opengate admin group may stop by to
+update software on your gate.  This is often done by a bot (an avatar
+controlled by a computer program), who will appear, update the gate,
+and leave.  Update bots will not speak or interact in any other way.
+
+Banning opengate update bots from your parcel or region means you won't
+get software updates, and you risk having your gate disconnected from
+the network.
+
+Gates which continue to cause problems and cannot be reached by our
+update bots may be remotely deleted.

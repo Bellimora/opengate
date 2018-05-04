@@ -1,0 +1,52 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+About
+-----
+
+The Open Stargate Network is a free fault tolerant open source networked
+teleportation system for the online game Second Life.
+
+The code and reference implementation are FREE.  If you paid for them
+you got ripped off.
+
+Legalese
+--------
+
+Second Life(R) and SL(TM) are a trademarks of Linden Research,
+Inc., and they have lots of funny rules that require this piece of text
+appear at the beginning of this document.
+
+And while we're thinking about it, we should also mention that The
+Open Stargate Network is a non profit project developed by fans of
+the Stargate Universe & Franchise, of which all Major Rights, Trademarks
+and Intellectual Properties belong to MGM, Sony Entertainment and their
+associated respective rights holders.
+
+Detailed Documentation
+----------------------
+
+* #Quick Links# you might find useful
+
+  http:quicklinks.html
+
+* The #User's Guide# contains items of interest to Stargate Travelers
+
+  http:user_guide.html
+
+* The #Owner's Guide# contains items of interest to Stargate Owners
+
+  http:owner_guide.html
+
+* The #Hacker's Guide# contains items of interest to Stargate Developers
+
+  http:dev_guide.html
+
+* The #Openrings Guide# contains documentation of Openrings
+
+  http:rings.html
+

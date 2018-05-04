@@ -1,0 +1,93 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Stargate Themes
+---------------
+
+The two classic models (oneprim and eleven) support a number of
+themes (texture sets, sounds, and associated objects) that allow you to
+change the look of the Stargate.  Other models may also honor
+some theme settings.  To change the theme, touch your stargate, select
+"ADMIN", "THEME" from the menu, and select the theme you want.
+
+When changing themes, it may take up to two minutes for the chevrons
+to change on the oneprim model.
+
+Themes are contained in notecards inside the Open Stargate named
+"@theme:whatever".
+
+When you select a theme, the textures/sounds/etc referenced by the theme
+notecard are used to change the appearance of your Stargate.  If subsequent
+software updates change the contents of the notecard, your Stargate will
+change appearance to match the new updates.
+
+Changes to existing stock notecards will be lost during an update.  To make
+changes that persist through updates, make a copy of the notecard with a
+different name.
+
+theme format
+............
+
+A theme notecard consists of a list of setting value pairs, one per line.
+
+Since reading notecards is relatively slow, and the settings are
+generally self explanatory, there is no provision for comments in the
+theme notecards.
+
+The following settings are recognized by the theme reader.  Settings in
+the theme notecard may appear in any order.  Unrecognized settings
+are ignored.
+
++-------------------+----------+------------------------------------+
+| name              | type     | description                        |
++-------------------+----------+------------------------------------+
+| back              | key      | texture used on back of Stargate   |
+| bigchevron_lit    | key      | texture for lit top chevron
+| bigchevron_unlit  | key      | texture for unlit top chevron
+| bumpshiny         | string   | bump shiny setting (comma seperated) (see below)
+| chevron_lit       | key      | texture for lit non-top chevron
+| chevron_ring      | string   | sculpted or flat
+| chevron_rot       | vector   | euler degree rotation of topmost chevron when ring is in <0,0,0> rotation
+| chevron_sculpt    | key      | sculpt map used for chevrons
+| chevron_size      | vector   | size of chevron prims
+| chevron_unlit     | key      | texture for unlit non-top chevrons
+| collapse_texture  | key      | particle texture for collapsing wormhole
+| coloralpha        | rotation | <red, green, blue, alpha> setting
+| dhd               | key      | texture used for dhd
+| edge_inner        | key      | texture used on inner edge of Stargate
+| edge_outer        | key      | texture used on outer edge of Stargate
+| event_horizon     | string   | hollowsphere or 36frame
+| fail_sound        | key      | sound used for failed dials
+| front             | key      | texture used on front face of Stargate
+| fullbright        | integer  | 1 for fullbright on or 0 for off
+| glow              | float    | glow setting
+| horizon           | key      | texture used for event horizon
+| horizon_animation | string   | parameters passed to llSetTextureAnim
+| hsoow_sound       | key      | sound used for collapsing wormhole
+| lock_sound        | key      | sound used for chevron locking
+| loop_sound        | key      | sound used while wormhole is open
+| material          | string   | stone, metal, glass, wood, flesh, plastic, or rubber
+| params            | string   | settings passed to llSetPrimitiveParams (deprecated)
+| ring              | key      | texture used on dialing ring
+| ring_static       | key      | texture used on multiprim dialing ring when not moving
+| splash            | key      | sound used for avatar colliding with wormhole
+| texgen            | string   | default or planar
+| woosh             | key      | particle texture for opening kawoosh
+| woosh_sound       | key      | sound used for wormhole opening
++-------------------+----------+-----------------------------------+
+
+Allowed bump settings: none bright dark wood bark bricks checker concrete
+tile stone disks gravel blobs siding largetile stucco suction weave
+
+Allowed shiny settings: none low medium high
+
+Custom Themes
+-------------
+
+The automatic update process will clobber any changes made to stock
+theme notecards.  To keep changes across updates, rename them.
+

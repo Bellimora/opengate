@@ -1,0 +1,156 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Philosophy and History
+----------------------
+
+Open Source
+...........
+
+The code (LSL and perl scripts) is licensed under the GPL.  Please read
+and understand the license agreement.  The GPL is designed to make
+sure that the code remains free for everyone to use.
+
+Background
+..........
+
+When I first logged in to Second Life, one of the first things I stumbled
+across was a Stargate.  I thought they were the neatest things.  When it
+came time for me to learn LSL, I decided I wanted to script one, as a
+learning exercise.
+
+It only took me a few days, and I came up with something which, while not
+artistically accurate, worked just as well as the Stargates I had stumbled
+across my first day in Second Life.
+
+I was excited.  I wanted to show off what I'd done.  I hunted down
+Wes Keynes.  I hunted down Reyo Neutra.  I was such a newb.
+
+I learned several things.  There was not just one, or two, or three,
+but four separate and noninteroperating Stargate networks.  While two
+of the networks were working on interconnecting, mine was a fifth,
+and nobody wanted to see that.
+
+I also learned that Second Life was not an "Open Source" community.
+It seemed as if many people were infected with the "greed meme", and
+thought they could sell their objects for fun and profit.
+
+Not only did nobody want to look at my code, nobody wanted to show
+me theirs.
+
+This bothered me.
+
+Over time, I also learned that each of the different networks was tied
+its own central server, coordinating that network's stargates.  If that
+server goes down, all the Stargates on that network stop functioning.
+
+This also bothered me.
+
+As I write this, it seems some of the networks have disappeared
+altogether, and with them some fairly stunningly beautiful Stargates.
+I particularly miss the Elven Moor Stargate, and I've had a rough time
+finding another like it.
+
+This also bothers me.
+
+Response
+........
+
+It seems that, as long as a single server controls the network, there is
+a tendency towards instability.  That server may go down, or the person
+operating it may lose interest in maintaining it.
+
+Of course, there's only one thing for it.  A decentralized open source
+Stargate network.  As long as there is not any single point of failure,
+and the code is freely available, the Stargate network should remain stable
+and usable by all.
+
+Note that this is a "clean room" implementation; I've never actually
+seen any code for any other stargate network.  Please see the note in
+automap.lsl regarding "clean room" development.
+
+In the News
+...........
+
+These web pages are interviews and news articles posted by folks outside of
+the development team.
+
+http://blog.iliveisl.com/stargates-sculpties-isl/
+
+See Also
+........
+
+These web pages may help shed light on the history behind having multiple
+Stargate systems.  It is my fond wish and hope that the availability of an
+open source alternative will eventually cause these competing systems
+to freely interoperate.
+
+Prometheus [Mintopia Ambassador]
+ * Milkyway
+ * http://www.psgn.co.uk/content.aspx?history
+ * Officially defunct as of August 2007.
+ * Stargates listed, but appear missing.
+ * Relies on a central server.
+
+Cleary [Wes Keynes, Lobos Cranes]
+ * Milkyway
+ * http://www.aristoi.org/gatenetwork/
+ * Gradually falling into disuse.
+ * 137 Stargates as of July 2009.
+ * Multiple errors when trying to use their web site.
+ * Relies on a central server.
+
+Alteran [Zachary Carter]
+ * Pegasus/Milkyway/Forerunner/Tollan
+ * http://www.alpha-fox.com/asn/
+ * 645 Stargates as of April 2009
+ * Relies on a central server.
+
+Arcturus [Zachary Carter, Peter Lameth, Kegan Loon]
+ * Milkyway/Pegasus
+ * http://asgn2.co.uk/
+ * Rapidly falling into disuse; 0 Stargates listed as of July 2009.
+ * Relies on a central server.
+ 
+Ancient Stargate Alliance (formerly Open Source Stargate Server) [Joran Yoshikawa, cyber Ahn, Paul Gazov]
+ * Milkway/Pegasus/Destiny
+ * http://www.yoshitec.de
+ * 20 Stargates as of June 2010
+ * mimics the Alteran API
+ * German/English
+ * Relies on a central server.
+ * as of 24-Aug-2010, no longer Open Source
+ * as of 01-Oct-2011, officially defunct, all gates deleted
+
+Burrowtek Gate Network (risen from the ashes of AGA) [cyber Ahn]
+ * http://www.cyber.caworks-sl.de/stargate-web/
+
+Quantum Gate Stargate [Darling Brody]
+ * Milkyway
+ * No data is publicly available on the size of this network.
+ * approx 200 gates per Darling Brody, April 2009
+ * Relies on a central server.
+ * shut down circa 2011, citing unauthorized copies and load on central server
+
+Stargate Network Teleporter [Chianna Nozaki]
+ * Milkyway (no dialing effects, numerous code problems)
+ * private networks configured via notecard
+ * in region only (sitporter)
+ * https://www.xstreetsl.com/modules.php?name=Marketplace&file=item&ItemID=1554351
+ * secondlife://hyralios/135/58/317
+
+Iconian Gateway [Peter Lameth]
+ * Star Trek Iconian Gateway
+ * https://www.xstreetsl.com/modules.php?name=Marketplace&file=item&ItemID=81846
+ * Allows gating to all currently active networks.
+ * No data is publicly available on the size of this network.
+ * Relies on a central server.
+
+These web pages are about the stargate device in the Stargate Movie
+and TV shows: http://www.rdanderson.com/stargate/glyphs/glyphs.htm
+http://en.wikipedia.org/wiki/Stargate_%28device%29
+http://www.joysgate.com/stargate_sg1/sg1_graphic_art.htm

@@ -1,0 +1,65 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Stargate Aliases
+----------------
+
+Aliases are set by adding them to the name field of the object, in square
+brackets.
+
+A complete list of Stargates and Stargate aliases can be found at
+http://opengate.ma8p.com/list.cgi
+
+When dialing, a case insensitive match is done on the following:
+
+  * Stargate address code (seven different symbols)
+  * Stargate address alphacode (seven different uppercase letters)
+  * Stargate region name (i.e. "Rowling")
+  * Stargate region name plus owner name (i.e. "Rowling Doran Zemlja")
+  * Stargate region name plus display name (i.e. "Rowling Doran")
+  * Stargate alias (i.e. "my alias")
+
+Matches are done in the order shown.  i.e. if there is a Stargate in the
+region named "Gamma" and there is also a Stargate with an alias of "Gamma",
+dialing Gamma will ALWAYS get you the Stargate in the region named Gamma.
+
+If there are multiple matches at the same level then one of them is chosen at
+random.  i.e. if there are two Stargates in the region Gamma, dialing Gamma
+will give you one or the other at random.  However, to speed lookups,
+once a Stargate gets a match, it will remember that match until
+some other Stargate is dialed.  i.e. the first dial to Gamma will be a random
+gate in Gamma, but subsequent dials from that same gate will go to the same
+destination in Gamma, until some other address is dialed.
+
+Stargates may have multiple aliases.  An alias appears in square brackets
+in the Stargate object name.  i.e. If you name your object "OpenGate
+[prime] [my alias]" it's aliases will be "prime" and "my alias".
+
+The special symbols used for Stargate addresses can also be used as part
+of an alias.  Since SL does not allow special symbols in object names,
+escape sequences are required.  The sequences \A through \Z, \0 through
+\9, and \. and \- are used to substitute for the special symbols.
+
+As a shorthand, an alias beginning with a ~ is assumed to be all symbols, so
+the alias [\A\B\C] is the same as [~ABC].
+
+Aliases with unicode characters can also be created by using u+XXXX to
+represent a unicode code point.  For example, [u+661fu+9580] would be the
+Chinese Traditional alias for "Star Gate".
+
+Note that while it is possible to set an alias with repeating symbols, the
+DHD cannot dial it.  Also note that normal Stargate addresses are searched
+first, so an alias cannot be used to hijack another Stargate's address.
+
+Please do not copy a gate, or rez multiple copies of gates, for the
+sole purpose of getting a specific gate address.  The odds of getting a
+specific gate address by copying gates is about 1 in 20 million.  It is
+futile.  The best way to get your gate to respond to an old address is
+to use a special symbol alias, as described above.
+
+A Stargate will never dial itself.
+

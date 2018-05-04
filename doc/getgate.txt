@@ -1,0 +1,36 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Where to get an Open Stargate
+-----------------------------
+
+Any Open Stargate can vend you the release package.  Touch the Stargate, and
+select "GET GATE".
+
+If you can't find an existing Open Stargate, go to secondlife://Rowling/51/139/41
+to get the release package.
+
+Caveat Emptor
+.............
+
+The Open Stargate Network is a free open source project.  The code
+is freely available under the terms of the GPL, and the objects are
+distributed with full permissions.  These sorts of items are commonly
+called "freebies" in Second Life.  There are unscrupulous people who
+will take advantage of freebies by repackaging them and selling them to
+unsuspecting people.
+
+If you purchased your copy from someone and are upset about it, we
+strongly encourage you to leave feedback on the item in whatever forum
+you found it to let others know how much you enjoy it and how they can
+get their own for free.  The Open Stargate Network can not and will not
+"refund" your money, as we do not receive any of the proceeds of these
+unscrupulous sales.
+
+If you purchased the item in the SL marketplace, please also "flag
+this item" and select "spam or disallowed listing practices", "inflated
+listing price".

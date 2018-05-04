@@ -1,0 +1,25 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Stargate Placement
+------------------
+
+It's always annoying to walk through a Stargate and come out somewhere random,
+far away from any visible Stargate.  Sort of breaks the mood, you know?
+
+Please, as a courtesy to other Stargate travelers, do not place your Stargates
+on land with restricted access ("about land" / "access" should not have
+any check boxes selected), or with a teleport routing away from the Stargate
+("about land" / "options" / "teleport routing" should say "anywhere").
+Alternately, you can set "teleport routing" to "landing point", and
+place the Stargate at the landing point.  If you wish to have a seperate
+landing point from the Stargate, you might consider splitting off the 4x4
+m^2 section containing the Stargate ("edit terrain", "subdivide").
+
+Also, if placing your Stargate in a private region, make sure region
+permissions are set to allow people to teleport to the region.
+

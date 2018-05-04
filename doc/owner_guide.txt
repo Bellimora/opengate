@@ -1,0 +1,39 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+* #Where to get a Stargate#
+
+  http:getgate.html
+
+* #Quick Setup#
+
+  http:quicksetup.html
+
+* #Standards of Placement#
+
+  http:placement.html
+
+* #Stargate Aliases#
+
+  http:alias.html
+
+* #Stargate Flags#
+
+  http:flags.html
+
+* #Stargate Themes#
+
+  http:themes.html
+
+* #Automatic Updates#
+
+  http:updates.html
+
+* #Other Second Life Concerns#
+
+  http:otherconcerns.html
+

@@ -1,0 +1,43 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Quick Setup Guide
+-----------------
+
+This section is meant to give a brief overview of what to do to set up
+your Open Stargate.  It is intended for first time owners who have never
+set one up before.  The nitty gritty details are found elsewhere in this
+document.  This section is meant as an overview only.
+
+* (Optional) Rez the "Steps and Gate Area" or "Destiny gate stand" first.
+  These are optional scenery items you might want if you can spare the
+  prims.
+* (Required) Rez the "opengate:" of your choice.  If you're using the steps
+  or stand you'll want to position this over them so it sinks in a bit and
+  you'll be able to walk through the OpenGate.
+* (Optional) Rez any other items ("dhd", "addressdisplay", "statusdisplay"
+  These are optional scenery items you might want if you can spare the
+  prims. (see below)
+* (Required) Wear the "updater".  This will start loading scripts and
+  objects into your OpenGate.
+* (Optional) Drop a texture into your OpenGate.  This texture will appear as a
+  60x45 graphic next to your gate in the gate list at
+  http://opengate.ma8p.com/list.cgi
+
+The distribution box comes with other goodies you may want to use.  Here's
+what they are and how they work.
+
+* "addressdisplay"
+  This displays the symbols for your OpenGate's address.
+* "statusdisplay"
+  This high tech device shows the current status of your OpenGate.  Clicking
+  on it also brings up a menu of addresses.  You can change what's in the menu
+  by modifying the notecard inside.
+* "dhd"
+  This is a dialing device.  Click the button in the middle to dial a random
+  gate.  Or click on symbols, followed by the center button, to dial an
+  address.

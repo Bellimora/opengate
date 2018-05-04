@@ -1,0 +1,77 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Problems with Viewer Fonts
+--------------------------
+
+The symbol addresses use unicode characters in the range U+263C
+through U+2653.  Some users may have trouble with these characters.
+If your SL Viewer displays these as question marks or small boxes,
+there is a problem with the fonts.  Note that this is a Viewer problem,
+and NOT an LSL problem.
+
+If you have problem seeing fonts, try the following:
+
+* First, we need to open the advanced menu.
+* On a PC you can enable the advanced menu by hitting Ctrl-Alt-D
+* From the Advanced Menu, select "Debug Settings..."
+* The two settings we're interested in are "FontSansSerif" and "FontSansSerifFallback"
+  * FontSansSerif MtBkLfRg.ttf
+    * This is the default font used for most things.
+    * Unfortunately, it doesn't contain the symbols mentioned above, so the
+      SL Viewer will resort to the fallback fonts...
+  * FontSansSerifFallback MSGOTHIC.TTC;gulim.ttc;simhei.ttf;ArialUni.ttf
+    * These are the fonts used if a character can't be found in the FontSansSerif font.
+
+In all likelyhood, you are missing one or more of these fonts, or have old
+versions of these fonts.  There are four possible ways to fix this problem.
+
+* Method #1, Install the "East Asian Language Pack"
+
+   * This contains a few of the fonts above.
+   * Instructions can be found here:
+     http://www.astahost.com/info.php/adding-east-asian-fonts-system_t8934.html
+   * Restart your SL Viewer.
+
+* Method #2, Install "Microsoft Office 2002" or later
+   
+   * It contains ArialUni.ttf.  Instructions can be found here:
+     http://support.microsoft.com/kb/287247
+   * Restart your SL Viewer.
+
+* Method #3, Install some other font and add it to the fallback list
+
+   * While it isn't the prettiest, the GNU unifont.ttf seems to work.
+   * Go to http://www.lgm.cl/trabajos/unifont/index.en.html
+   * Get the unifont.zip, unpack it, and copy the unifont.ttf to
+     C:\windows\fonts
+   * Add ";unifont.ttf" to the end of FontSansSerifFallback.
+   * Restart your SL Viewer.
+
+   * Instead of unifont, you may want to try "dejavu sans", which is a bit
+     prettier, available at:
+     http://dejavu.sourceforge.net/wiki/index.php/Download
+
+* Method #4, Install some other font and change the default font
+
+   * On Mac and Linux, the FontSansSerifFallback gets regenerated at client
+     startup, so changes there don't stick.
+   * Also, it seems not all fonts in the fallback list are used, which makes
+     it pretty useless.
+   * As in #3 above, grab the unifont.ttf file (or some other file) and install it
+   * Change the "FontSansSerif" to be the full path to the unifont.ttf
+   * Restart your SL Viewer.
+
+Problems with Browser Fonts
+---------------------------
+
+Like the viewer, some web browsers may have problems with the characters used
+for symbols in the http://opengate.ma8p.com/list.cgi .  Solutions for this
+will vary by browser and are out of scope for this document, but in general:
+
+ * Make sure you're using the latest version of your browser
+ * Check your browser's fonts for support of these characters

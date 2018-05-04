@@ -1,0 +1,95 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Lag
+---
+
+There is a common misconception that "OpenGate causes lag".  Most users
+have a poor perception of "lag", partly because Second Life does not have
+any good tools for measuring lag, and partly because the users do not
+have a clear idea of what actually causes lag.  Users who notice
+performance problems will look at an OpenGate object, see a bunch of
+scripts, and immediately jump to the conclusion that this is the sole
+cause of all their woes.
+
+This couldn't be further from the truth.
+
+There are two types of "lag" we can talk about.
+
+"Client" or "Viewer" lag occurs on the end user's personal computer.
+This can be caused by a number of variables, such as the video card
+type and the network bandwidth.  Since these things are mostly out of
+our control, there's not much we can do about them.
+
+"Server" or "Simulator" lag occurs on machines hosted by Linden Labs.
+Script behavior does have an impact here, and this is within our control.
+Server lag occurs when the resources of the server become overtaxed,
+causing frame rate to drop.
+
+Linden Labs provides two tools for measuring script impact on
+frame rate.  The first is the "Statistics Bar" as described in
+http://wiki.secondlife.com/wiki/Statistics_Bar_Guide and the
+second is the estate manager tools "Top Scripts" as described in
+http://wiki.secondlife.com/wiki/Region_Performance_Improvement_Guide .
+If you haven't had the time to read these documents, we STRONGLY urge
+you to do so, as the rest of this section references them frequenty.
+
+Ideally, we'd like to use the estate manager's "Top Scripts" tool to look
+at performance.  Indeed, in the past, we have worked with various estate
+managers to fine tune scripts, but this contact is sporadic.  Since we're
+not rich, and don't own an estate, we don't have access to these tools on
+a day to day basis.  We'd like a methodology that quantifies our effect
+on server frame rate, in a way that anyone can confirm and verify.
+
+So let's look at the Statistics Bar.  The important thing to note is the
+"total frame time" and the "script time".  The "total frame time" is the
+amount of time it takes the server to do everything it needs to do during each
+frame.  On an unloaded simulator, this is 44 frames per second, or 22.2ms per
+frame.  When the total time exceeds that, the frame rate will start to drop.
+
+Another important thing to note is that number of "active scripts".  This is
+the total number of running scripts on the simulator.  On most simulators on
+the mainland, this number is in the thousands.  How do we get the statistics
+bar to show us only the details about our objects?  At first glance this does
+not seem possible.
+
+We have developed the following testing methodology.  It is designed to
+measure the impact of a single object on "script time".
+
+* remove all scripted attachments on your avatar
+* find an empty sim and open the Statistics Bar
+* verify you can run scripts in the region
+* verify "main agents" is 1
+* verify "child agents" is 0
+* verify "active objects" is 0
+* verify "active scripts" is 0
+* verify "script time" is 0.0ms
+* rez (or attach) the object under test
+* watch and record "script time"
+* record min, average, and max values over 1 minute
+
+This method will give you isolated data about your object and its impact on
+server frame rate.
+
+We did this for three objects.  We're currently using this data to improve
+our performance.  We chose a current release OpenGate, a future release
+OpenGate, and a current Alteran Stargate.  Here's what we found.
+
++----------------------+-------------------------+
+| Object               | script time min/avg/max |
++----------------------+-------------------------+
+| OpenGate v231        | 0.2ms / 0.3ms / 0.8ms   |
+| OpenGate v300        | 0.1ms / 0.1ms / 0.6ms   |
+| Alteran Tollan 1.1.3 | 0.1ms / 0.1ms / 0.9ms   |
++----------------------+-------------------------+
+
+Note that ALL of these numbers are substantially lower than the 22.2ms
+required for full frame rate operation.
+
+Conclusion?  The current release of OpenGate does not cause an excessive
+amount of server load compared to other objects.  Armed with this new
+testing methodology, the next release version will cause even less load.

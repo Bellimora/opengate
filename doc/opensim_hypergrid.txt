@@ -1,0 +1,91 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+Does the code work with / support OpenSim?
+------------------------------------------ 
+
+Boy do I wish I could channel the raw enthusiasm I see for this into
+the OpenSim project.
+
+The more correct question to ask here is "Does OpenSim currently support
+enough LSL functionality to run the Open Stargate Network
+code?"
+
+At this time, the answer is unfortunately "no".
+
+According to http://opensimulator.org/wiki/Download , "As OpenSim is
+still at an alpha code maturity stage, there is absolutely no guarantee
+that functionality works or is stable, even in the numbered releases."
+That web page has had that notice for over 3 years now, and I have no hope
+that the OpenSim team has it together enough to ensure a stable set of base
+features.  They seem much more motivated to add crazy new whizbang features
+than to produce a stable bugfree platform with a complete set of base
+functionality.
+
+The Open Stargate Network relies on a large number of
+features available on the Linden Main Grid which simply aren't implemented
+yet in OpenSim.
+
+I have spent about a week attempting to port the code to OpenSim.
+To that end, I have contributed a number of patches to the OpenSim
+project.
+
+Sadly, I have realized that what I consider to be a logical goal for
+OpenSim (100% LSL compatability) is not one of their actual goals.
+I find this attitude frustrating and difficult to work with.
+Patches I've submitted to OpenSim have been met with a great deal
+of "Not Invented Here" combined with a lack of appreciation for the
+"Principle of least astonishment".  I could rant on, but the short story
+is that OpenSim's LSL implementation is laughably broken, and will not
+likely improve for some time.  (See http://opensimulator.org/mantis
+bugs 3199, 3187, 3144, 3174, 3201, 3176, 3145, 3157, 3152, and 3143)
+(In particular, see http://opensimulator.org/mantis/view.php?id=3187 and
+http://opensimulator.org/mantis/view.php?id=3144 for an example of what
+I'm talking about) (See also http://www.alpha-fox.com/community/topic.php?id=251
+; I'm not the only one who has had this problem with them.)
+
+As of v205, the code should at least compile in OpenSim.  I have removed
+reliance on several SecondLife LSL features not currently supported in
+OpenSim.  However, since I am not actively maintaining this, there is no
+guarantee that they will not creep back in.
+
+Actual support for OpenSim would require another experienced C# developer
+to fix OpenSim's horribly broken LSL implementation.  I have neither 
+the time nor the patience to deal with the OpenSim development team any
+further.
+
+At minimum, OpenSim should support llEmail, llRequestURL, and
+and http_request.  The methods are critical for intersim object
+communications.  The documentation currently *says* it supports
+these things, but if you look more closely, you will find that their
+implementation is incomplete and nonfunctional for the purposes of
+allowing objects in different sims to communicate with each other.
+
+I am, as always, willing to accept patches that work around OpenSim's
+limitiations if they do not impair the functionality of the code on the
+main grid.  To date, no one other than me has submitted any such
+patches.
+
+Will the code work with OGP or Hypergrid?
+---------------------------------------- 
+
+Yes, but don't get too excited just yet.
+
+The same code that allows dials to other networks (/dial >alteran, etc...)
+could in theory also work with OGP or Hypergrid regions.  However,
+since no grid besides the Linden main grid supports LSL, (see above)
+there's not much point.
+
+I've recently learned the OpenSim Hypergrid Team has their
+own Stargate project.  Their event horizon textures and DHD
+sculpt maps look familiar.  I wonder where they got them from?  See
+http://www.mariasworlds.com/2009/04/internet-history-made-today-travels-thorugh-the-stargate/
+and
+http://opensimulator.org/wiki/HyperGrid_Team/Current_Projects/HyperGrid_Stargate
+for more details.  While the Hypergrid team is part of OpenSim, and
+is therefore in theory open source, their stargate source code is not
+available to the public.  IMs to project maintainers have gone unanswered.

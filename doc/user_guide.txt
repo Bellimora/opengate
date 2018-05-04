@@ -1,0 +1,15 @@
+========================================================
+
+Open Stargate Network v400
+==========================
+
+========================================================
+
+* #How To Use a Stargate#
+  http:howto.html
+
+* #The Automap HUD#
+  http:automap.html
+
+* #Font Problems#
+  http:fonts.html
