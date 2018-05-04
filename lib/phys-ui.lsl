@@ -338,9 +338,9 @@ void rez_horizon() {
 
 #if defined(PHYS_SCIFINERD_MESH)
    rotation rot = llAxes2Rot(-llRot2Up(llGetRot()), llRot2Left(llGetRot()), llRot2Fwd(llGetRot()));
-   llRezObject(">horizon", llGetPos(), ZERO_VECTOR, rot, c);
+   llRezObject(">horizon", llGetPos(), ZERO_VECTOR, rot, object_rez_say_channel);
 #else
-   llRezObject(">horizon", llGetPos(), ZERO_VECTOR, llGetRot(), c);
+   llRezObject(">horizon", llGetPos(), ZERO_VECTOR, llGetRot(), object_rez_say_channel);
 #endif
 
    object_rez_say_message = s;

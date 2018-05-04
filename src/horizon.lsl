@@ -164,12 +164,12 @@ default
    experience_permissions_denied(key target, integer reason) {
       llRegionSayTo(target, -900000,
          llDumpList2String(["map",
-		    llDetectedKey(i),
+		    target,
 		    llList2String(where,0),
 		    llList2String(where,1),
 		    llList2String(where,2)], "|"));
 	  llRegionSayTo(target, -1812221819, llDumpList2String([
-	     rlv_reqid++, llDetectedKey(i), "@tpto:"+
+	     rlv_reqid++, target, "@tpto:"+
 		 (string)global_coords.x+"/"+
 		 (string)global_coords.y+"/"+
 		 (string)global_coords.z+"=force"
