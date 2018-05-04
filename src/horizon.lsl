@@ -145,6 +145,7 @@ default
          for (i = 0; i < num; i++) {
             if (-1 == llListFindList(splashers, [ llDetectedKey(i) ])) {
                llTriggerSound(splash_sound, 1.0);
+			   llRequestExperiencePermissions(llDetectedKey(i), "");
                splashers = splashers + llDetectedKey(i);
             }
          }
