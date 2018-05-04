@@ -8,6 +8,10 @@
 
 #define FX_NUM 18008
 #define CHEVRING_NUM 918008
+#define WORMHOLE_IDLE 0
+#define WORMHOLE_DIALING 1
+#define WORMHOLE_OUTGOING 2
+#define WORMHOLE_INCOMING 3
 
 #include "k2ss.lsl"
 #include "getflagvalue.lsl"
@@ -31,7 +35,7 @@ list light_prims = [
 ];
 #endif
 
-integer wormhole_state = 0;
+integer wormhole_state = WORMHOLE_IDLE;
 list states = [ "idle", "dialing", "outgoing", "incoming" ];
 integer notfound = 0;
 string iam_id;
@@ -305,7 +309,6 @@ void unlight() {
 }
 
 void rez_horizon() {
-   integer c = (integer) llFrand(4096) + 4096;
 
    light();
    dial(0.0);
@@ -319,7 +322,7 @@ void rez_horizon() {
 
    where = llListReplaceList(where, [ size ], 3, 3);
 
-   if (wormhole_state == 2) {
+   if (wormhole_state == WORMHOLE_OUTGOING) {
       where = llListReplaceList(where, [ iam_region, iam_pos, iam_rot ], 0, 2);
    }
    else {
@@ -340,7 +343,6 @@ void rez_horizon() {
    llRezObject(">horizon", llGetPos(), ZERO_VECTOR, llGetRot(), c);
 #endif
 
-   object_rez_say_channel = c;
    object_rez_say_message = s;
 }
 
@@ -358,6 +360,8 @@ default {
       send("me", "preload", "texture", "caa9a96f-aa04-80d3-f4a0-95302f29aa41");
       send("me", "preload", "texture", "dcab6cc4-172f-e30d-b1d0-f558446f20d4");
       llListen(-904000, "", NULL_KEY, "stargate status");
+	  object_rez_say_channel = (integer) llFrand(4096) + 4096;
+	  llListen(object_rez_say_channel, "", "", "ready");
       //llListen(-804000, "", NULL_KEY, "stargate status");
       //llListen(-704000, "", NULL_KEY, "stargate status");
       llSetTimerEvent(1.0);
@@ -386,8 +390,15 @@ default {
 #endif
    }
 
-   listen(integer unused_chan, string unused_name, key unused_id, string unused_mesg) {
-      emit_status();
+   listen(integer chan, string unused_name, key id, string unused_mesg) {
+	  if (chan == object_rez_say_channel) {
+	     key rezzer = llList2Key(llGetObjectDetails(id, [OBJECT_REZZER_KEY]), 0);
+		 if (rezzer == llGetKey()) {
+		    llRegionSayTo(id, object_rez_say_channel, object_rez_say_message);
+		 }
+	  } else {
+		 emit_status();
+	  }
    }
 
    timer() {
@@ -424,7 +435,7 @@ default {
 
          countdown--;
 
-         if (wormhole_state == 1) {
+         if (wormhole_state == WORMHOLE_DIALING) {
             if (countdown == 1) {
                dial(0.0);
             }
@@ -502,11 +513,11 @@ default {
          }
 
          if (!countdown) {
-            if (wormhole_state == 1) {
+            if (wormhole_state == WORMHOLE_DIALING) {
                if (iam_id == "") { // && notfound > 0) 
                   llSay(0, "Not found");
                   llTriggerSound(fail_sound, 1.0);
-                  wormhole_state = 0;
+                  wormhole_state = WORMHOLE_IDLE;
                   emit_status();
                   unlight();
                   dial(0.0);
@@ -517,7 +528,7 @@ default {
                         "/" + (string)((integer) iam_pos.y) + 
                         "/" + (string)((integer) iam_pos.z));
                   send("me", "opento", iam_id);
-                  wormhole_state = 2;
+                  wormhole_state = WORMHOLE_OUTGOING;
                   emit_status();
                   rez_horizon();
                   llSetTimerEvent(1.0);
@@ -527,7 +538,7 @@ default {
             else {
                unlight();
                dial(0.0);
-               wormhole_state = 0;
+               wormhole_state = WORMHOLE_IDLE;
                emit_status();
             }
          }
@@ -548,12 +559,12 @@ default {
 #endif
 
          if (arg0 == "verb") {
-            if (wormhole_state != 0) {
+            if (wormhole_state != WORMHOLE_IDLE) {
                llSay(0, "Wait (" + llList2String(states, wormhole_state) + ")");
                return;
             }
             send("me", "lookup", llList2String(pieces, 1), hash((string) llFrand(1.0)));
-            wormhole_state = 1;
+            wormhole_state = WORMHOLE_DIALING;
             emit_status();
             notfound = 0;
             iam_id = "";
@@ -636,8 +647,8 @@ default {
             notfound++;
          }
          if (arg0 == "woosh") {
-            if (wormhole_state == 0) {
-               wormhole_state = 3;
+            if (wormhole_state == WORMHOLE_IDLE) {
+               wormhole_state = WORMHOLE_INCOMING;
                emit_status();
                rez_horizon();
                llSetTimerEvent(1.0);
@@ -937,22 +948,6 @@ default {
          else {
             unlight();
          }
-      }
-   }
-
-   object_rez(key unused_id) {
-      if (object_rez_say_channel != 0) {
-         llSay(object_rez_say_channel, object_rez_say_message);
-         llSleep(.1);
-         llSay(object_rez_say_channel, object_rez_say_message);
-         llSleep(.2);
-         llSay(object_rez_say_channel, object_rez_say_message);
-         llSleep(.3);
-         llSay(object_rez_say_channel, object_rez_say_message);
-         llSleep(.4);
-         llSay(object_rez_say_channel, object_rez_say_message);
-
-         object_rez_say_channel = 0;
       }
    }
 }

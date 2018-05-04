@@ -3,6 +3,7 @@ list where = ["", ZERO_VECTOR, ZERO_ROTATION];
 list splashers = [];
 
 vector global_coords;
+vector sim_corner;
 integer rlv_reqid;
 
 integer handle;
@@ -127,8 +128,10 @@ default
 {
    state_entry() {
       if (llGetObjectDesc() != "0") {
+	     key rezzer = llList2Key(llGetObjectDetails(llGetKey(), [OBJECT_REZZER_KEY]), 0);
          llSetObjectName("Event Horizon");
-         handle = llListen((integer) llGetObjectDesc(), "", "", "");
+         handle = llListen((integer) llGetObjectDesc(), "", rezzer, "");
+		 llRegionSayTo(rezzer, (integer) llGetObjectDesc(), "ready");
       }
       else {
          llParticleSystem([]);
@@ -154,21 +157,34 @@ default
          llWhisper(0, "touch the event horizon to teleport");
       }
       for (i = 0; i < num; i++) {
-         llSay(-900000,
-               llDumpList2String(["map",
-                  llDetectedKey(i),
-                  llList2String(where,0),
-                  llList2String(where,1),
-                  llList2String(where,2)], "|"));
-         llSay(-1812221819, llDumpList2String([
-                  rlv_reqid++, llDetectedKey(i), "@tpto:"+
-                  (string)global_coords.x+"/"+
-                  (string)global_coords.y+"/"+
-                  (string)global_coords.z+"=force"
-                  ]
-                  , ","));
+	     
       }
    }
+   
+   experience_permissions_denied(key target, integer reason) {
+      llRegionSayTo(target, -900000,
+         llDumpList2String(["map",
+		    llDetectedKey(i),
+		    llList2String(where,0),
+		    llList2String(where,1),
+		    llList2String(where,2)], "|"));
+	  llRegionSayTo(target, -1812221819, llDumpList2String([
+	     rlv_reqid++, llDetectedKey(i), "@tpto:"+
+		 (string)global_coords.x+"/"+
+		 (string)global_coords.y+"/"+
+		 (string)global_coords.z+"=force"
+		 ]
+		 , ","));
+   }
+   
+    experience_permissions(key target) {
+       if (llStringLength(llList2String(where, 0)) != 0) {
+          vector pos = (vector)llList2String(where,1);
+          rotation rot = (rotation)llList2String(where,2);
+          vector look = pos + llRot2Up(rot);
+          llTeleportAgentGlobalCoords(target, sim_corner, pos, look);
+       }
+    }
 
    on_rez(integer param) {
       llSetObjectDesc((string) param);
@@ -187,8 +203,8 @@ default
    }
 
    dataserver(key unused_reqid, string data) {
-      global_coords = (vector) data;
-      global_coords += (vector) llList2String(where, 1);
+      sim_corner = (vector) data;
+      global_coords = (vector) llList2String(where, 1) + sim_corner;
    }
 
    listen(integer unused_channel, string unused_name, key unused_id, string message) {
