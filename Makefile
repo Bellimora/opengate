@@ -120,6 +120,6 @@ dbg/phys_oneprim-ui.i: lib/phys-ui.lsl
 dbg/phys_simple-ui.i: lib/phys-ui.lsl
 dbg/phys_super-ui.i: lib/phys-ui.lsl
 dbg/phys_warp-ui.i: lib/phys-ui.lsl
-dbg/phys_api-ui.i: lib/phys_ui.lsl
+dbg/phys_custom-ui.i: lib/phys_ui.lsl
 
 -include deps

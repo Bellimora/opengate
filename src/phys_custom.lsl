@@ -1,3 +1,3 @@
-#define PHYS_API
+#define PHYS_CUSTOM
 
 #include "phys-ui.lsl"

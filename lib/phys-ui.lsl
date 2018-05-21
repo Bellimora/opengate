@@ -13,7 +13,7 @@
 #define WORMHOLE_OUTGOING 2
 #define WORMHOLE_INCOMING 3
 
-#if defined (PHYS_API) 
+#if defined (PHYS_CUSTOM) 
 #define CMD_PRELOAD_TEXTURE 100
 #define CMD_PRELOAD_SOUND 101
 #define CMD_CUSTOM_HORIZON 102
@@ -127,12 +127,12 @@ void emit_status() {
       llSay(-905000, "status|"+llList2String(states, wormhole_state));
       //llSay(-805000, "status|"+llList2String(states, wormhole_state));
       //llSay(-705000, "status|"+llList2String(states, wormhole_state));
-#if defined(PHYS_API)
+#if defined(PHYS_CUSTOM)
 	  message_status();
 #endif
 }
 
-#if defined(PHYS_API)
+#if defined(PHYS_CUSTOM)
 void message_status() {
    llMessageLinked(LINK_ALL_OTHERS, INFO_WORMHOLE_STATUS, llList2String(states, wormhole_state), "");
 }
@@ -331,7 +331,7 @@ void unlight() {
 }
 
 void rez_horizon() {
-#if defined(PHYS_API)
+#if defined(PHYS_CUSTOM)
 	if (hasflag("ch")) return;
 #endif
 
@@ -575,7 +575,7 @@ default {
    }
 
    link_message(integer sender, integer num, string mesg, key id) {
-#if defined(PHYS_API)
+#if defined(PHYS_CUSTOM)
       if (sender != llGetLinkNumber()) {
 	     if (num == CMD_PRELOAD_TEXTURE) {
 		    send("me", "preload", "texture", mesg);
@@ -654,7 +654,7 @@ default {
                iam_name = llUnescapeURL(llList2String(pieces, 7));
 #ifdef DEBUG
 
-#if defined(PHYS_API) 
+#if defined(PHYS_CUSTOM) 
                llMessageLinked(LINK_ALL_OTHERS, INFO_DESTINATION, llList2Json(JSON_OBJECT, [
 			      "id", iam_id,
 				  "num", iam_num, 
