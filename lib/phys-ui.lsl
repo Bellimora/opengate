@@ -13,6 +13,19 @@
 #define WORMHOLE_OUTGOING 2
 #define WORMHOLE_INCOMING 3
 
+#if defined (PHYS_API) 
+#define CMD_PRELOAD_TEXTURE 100
+#define CMD_PRELOAD_SOUND 101
+#define CMD_CUSTOM_HORIZON 102
+#define CMD_GET_STATUS 103
+
+#define INFO_DESTINATION 200
+#define INFO_WORMHOLE_STATUS 201
+#define INFO_STARTUP 202
+#include "setflag.lsl"
+#include "clrflag.lsl"
+#endif
+
 #include "k2ss.lsl"
 #include "getflagvalue.lsl"
 
@@ -114,7 +127,16 @@ void emit_status() {
       llSay(-905000, "status|"+llList2String(states, wormhole_state));
       //llSay(-805000, "status|"+llList2String(states, wormhole_state));
       //llSay(-705000, "status|"+llList2String(states, wormhole_state));
+#if defined(PHYS_API)
+	  message_status()
+#endif
 }
+
+#if defined(PHYS_API)
+void message_status() {
+   llMessageLinked(LINK_ALL_OTHERS, INFO_WORMHOLE_STATUS, llList2String(states, wormhole_state), "");
+}
+#endif
 
 void dial(float dir) {
 
@@ -309,6 +331,9 @@ void unlight() {
 }
 
 void rez_horizon() {
+#if defined(PHYS_API)
+	if (hasflag("ch")) return;
+#endif
 
    light();
    dial(0.0);
@@ -549,7 +574,31 @@ default {
       llResetScript();
    }
 
-   link_message(integer unused_sender, integer num, string mesg, key id) {
+   link_message(integer sender, integer num, string mesg, key id) {
+#if defined(PHYS_API)
+      if (sender != llGetLinkNumber()) {
+	     if (num == CMD_PRELOAD_TEXTURE) {
+		    send("me", "preload", "texture", mesg);
+		 } 
+		 else if (num == CMD_PRELOAD_SOUND) {
+		    send("me", "preload", "sound", mesg);
+		 }
+		 else if (num == CMD_CUSTOM_HORIZON) {
+		    integer custom = (integer)mesg;
+			if (custom) {
+			   if (!hasflag("ch")) {
+			      setflag("ch");
+			   }
+			} else {
+			   if (hasflag("ch")) {
+			      clrflag("chr");
+			   }
+			}
+		 } else if (num == CMD_GET_STATUS) {
+		    message_status();
+		 }
+	  }
+#endif
       if (num == MESG_RECV) {
          list pieces = llParseStringKeepNulls(mesg, ["/"], []);
          string arg0 = llList2String(pieces, 0);
@@ -604,6 +653,17 @@ default {
                iam_rot = (rotation) llList2String(pieces, 6);
                iam_name = llUnescapeURL(llList2String(pieces, 7));
 #ifdef DEBUG
+
+#if defined(PHYS_API) 
+               llMessageLinked(LINK_ALL_OTHERS, INFO_DESTINATION, llList2Json(JSON_OBJECT, [
+			      "id", iam_id,
+				  "num", iam_num, 
+				  "region", iam_region, 
+				  "pos", iam_pos, 
+				  "rot", iam_rot, 
+				  "name", iam_name, 
+				  "glyphs", k2ss(id)]), "");
+#endif
                if (hasflag("debug")) {
                   llDebugSay("region="+iam_region);
                   llDebugSay("pos="+(string)iam_pos);
