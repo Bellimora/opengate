@@ -128,7 +128,7 @@ void emit_status() {
       //llSay(-805000, "status|"+llList2String(states, wormhole_state));
       //llSay(-705000, "status|"+llList2String(states, wormhole_state));
 #if defined(PHYS_API)
-	  message_status()
+	  message_status();
 #endif
 }
 
