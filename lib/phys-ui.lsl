@@ -475,7 +475,11 @@ default {
                dial(1.0);
             }
             if ((countdown % 2) == 1) {
+
+
+#if !defined(PHYS_CUSTOM)
                llTriggerSound(lock_sound, 1.0);
+#endif
 
 #ifdef PHYS_ONEPRIM
                chev = (1 << (1 + 6 - (countdown / 2))) - 1;
