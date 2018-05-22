@@ -413,6 +413,10 @@ default {
       list l = llGetLinkPrimitiveParams((integer) llList2String(chevnums, 0), [ PRIM_COLOR, 0 ]);
       chevcolor = (vector) llList2String(l, 0);
 #endif
+
+#if defined(PHYS_CUSTOM) 
+      llMessageLinked(LINK_ALL_OTHERS, INFO_STARTUP, "", "");
+#endif
    }
 
    listen(integer chan, string unused_name, key id, string unused_mesg) {
