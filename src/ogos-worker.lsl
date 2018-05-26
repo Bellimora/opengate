@@ -393,7 +393,7 @@ default {
 
    listen(integer chan, string unused_name, key id, string mesg) {
       if (chan == dlgchannel) {
-	     if (isadmin(llDetectedKey(0))) {
+	     if (isadmin(id)) {
             if (mesg == "ADMIN") {
                llDialog(id, (string) llGetKey(), [ "THEME", "FLAGS", "RESET", "DIE", "DEBUG", "+90", "-90", "+180" ], dlgchannel);
                return;
