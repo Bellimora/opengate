@@ -393,25 +393,61 @@ default {
 
    listen(integer chan, string unused_name, key id, string mesg) {
       if (chan == dlgchannel) {
-         if (mesg == "ADMIN") {
-            llDialog(id, (string) llGetKey(), [ "THEME", "FLAGS", "RESET", "DIE", "DEBUG", "+90", "-90", "+180" ], dlgchannel);
-            return;
-         }
-         if (mesg == "+90" || mesg == "-90" || mesg == "+180") {
-            llSetRot(llGetRot() * llEuler2Rot(<0,0,(integer)mesg> * DEG_TO_RAD));
-         }
-         if (mesg == "RESET") {
-            llResetOtherScript("}pkg.o");
-            llSetScriptState("}pkg.o", 1);
-         }
-         if (mesg == "DIE") {
-            llDialog(id, "This will delete your stargate.  Are you sure?", [ "DIE!" ], dlgchannel);
-            return;
-         }
-         if (mesg == "DIE!") {
-            llDie();
-            return;
-         }
+	     if (isadmin(llDetectedKey(0))) {
+            if (mesg == "ADMIN") {
+               llDialog(id, (string) llGetKey(), [ "THEME", "FLAGS", "RESET", "DIE", "DEBUG", "+90", "-90", "+180" ], dlgchannel);
+               return;
+            }
+            if (mesg == "+90" || mesg == "-90" || mesg == "+180") {
+               llSetRot(llGetRot() * llEuler2Rot(<0,0,(integer)mesg> * DEG_TO_RAD));
+            }
+            if (mesg == "RESET") {
+               llResetOtherScript("}pkg.o");
+               llSetScriptState("}pkg.o", 1);
+            }
+            if (mesg == "DIE") {
+               llDialog(id, "This will delete your stargate.  Are you sure?", [ "DIE!" ], dlgchannel);
+               return;
+            }
+            if (mesg == "DIE!") {
+               llDie();
+               return;
+            }
+            if (mesg == "FLAGS") {
+               llDialog(id, "set/clear flags:\n" + llGetObjectDesc(), uniq(flags() + flaglist), dlgchannel);
+            }
+            if (mesg == "DEBUG") {
+               llDialog(id, "set/clear debugging flags:\n" + llGetObjectDesc(), uniq(flags() + debuglist), dlgchannel);
+            }
+		    if (NULL_KEY != llGetInventoryKey("@theme:"+mesg)) {
+               setflagvalue("theme", mesg);
+            }
+            if (-1 != llListFindList(flags() + flaglist + debuglist, [ mesg ])) {
+               if (hasflag(mesg)) {
+                  clrflag(mesg);
+               }
+               else {
+                  setflag(mesg);
+               }
+            }
+            if (mesg == "THEME") {
+               list notelist = llGetInventoryList(INVENTORY_NOTECARD);
+               integer max = llGetListLength(notelist);
+               integer i;
+               list l = [];
+               string s;
+               for (i = 0; i < max; i++) {
+                  s = llList2String(notelist, i);
+                  if (0 == llSubStringIndex(s, "@theme:")) {
+                     s = llGetSubString(s, 7, -1);
+                     l += s;
+                  }
+               }
+               l = llListSort(l, 1, TRUE);
+               llDialog(id, "Choose a theme:", l, dlgchannel);
+               return;
+            }
+	     }
          if (mesg == "USER") {
             user(id);
             return;
@@ -430,42 +466,8 @@ default {
             llGiveInventory(id, "automaphud");
             return;
          }
-         if (mesg == "THEME") {
-            list notelist = llGetInventoryList(INVENTORY_NOTECARD);
-            integer max = llGetListLength(notelist);
-            integer i;
-            list l = [];
-            string s;
-            for (i = 0; i < max; i++) {
-               s = llList2String(notelist, i);
-               if (0 == llSubStringIndex(s, "@theme:")) {
-                  s = llGetSubString(s, 7, -1);
-                  l += s;
-               }
-            }
-            l = llListSort(l, 1, TRUE);
-            llDialog(id, "Choose a theme:", l, dlgchannel);
-            return;
-         }
-         if (mesg == "FLAGS") {
-            llDialog(id, "set/clear flags:\n" + llGetObjectDesc(), uniq(flags() + flaglist), dlgchannel);
-         }
-         if (mesg == "DEBUG") {
-            llDialog(id, "set/clear debugging flags:\n" + llGetObjectDesc(), uniq(flags() + debuglist), dlgchannel);
-         }
          if (mesg == "ADDRESSES") {
             send("me", "askaddr", id);
-         }
-         if (NULL_KEY != llGetInventoryKey("@theme:"+mesg)) {
-            setflagvalue("theme", mesg);
-         }
-         if (-1 != llListFindList(flags() + flaglist + debuglist, [ mesg ])) {
-            if (hasflag(mesg)) {
-               clrflag(mesg);
-            }
-            else {
-               setflag(mesg);
-            }
          }
       }
       else if (chan == 124) {
