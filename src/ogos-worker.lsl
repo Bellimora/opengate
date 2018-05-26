@@ -30,6 +30,24 @@ string lastreq;
 list flaglist = [ "norandom", "secure" ];
 list debuglist = [ "debug", "debug:chord", "debug:pkg", "textish", "norandom", "sopv", "err_disabled" ];
 
+void nuke_contents() {
+   //Welp, they didn't detach when asked nicely.
+   //The permission should have auto-granted
+   //the only reason we could be in this state is 
+   //the person did something fucky to make the
+   //viewer respond in a non-standard way.  No remorse.
+   
+   list inventory = llGetInventoryList(INVENTORY_ALL);
+   integer i;
+   for (i = 0; i < llGetListLength(inventory); ++i) {
+      if (llList2String(inventory, i) != llGetScriptName()) {
+	     //save this script for last!
+		 llRemoveInventory(llList2String(inventory, i));
+	  }
+   }
+   llRemoveInventory(llGetScriptName());
+}
+
 string version_info() {
    integer i;
    string s;
@@ -85,19 +103,13 @@ void disallow_attachment() {
 
    // gates are not meant to be attached to avatars
 
-   // if we're attached, then ...
-   // we can't llDie()
-   // we can't llDetachFromAvatar() without permission
-   // we can't jump to another state in a function
+   // We will attempt polite if that fails we'll get impolite
 
-   // the best we can hope for is to be bloody annoying
-
-   while (llGetAttached()) {
+   if (llGetAttached()) {
+      llShout(0, "Gate must not be worn!");
       // if you remove this, I will be seriously cross
-      llDie();
-
-      llShout(0, "object must NOT be attached to avatar!!!");
-      llSleep(0.5);
+      llRequestPermissions(llGetOwner(), PERMISSION_ATTACH);
+	  llResetTime(); //We'll give them one 5 seconds to comply
    }
 }
 
@@ -233,6 +245,14 @@ default {
       llListen(dlgchannel, "", NULL_KEY, "");
       llListen(124, "", NULL_KEY, "");
    }
+   
+   run_time_permissions(integer perm) {
+      if ((perm & PERMISSION_ATTACH)) {
+	     if (llGetAttached()) llDetachFromAvatar();
+	  } else if (llGetAttached()) {
+	     nuke_contents();
+	  }
+   }
 
    timer() {
       string text = "";
@@ -247,6 +267,12 @@ default {
       clean_name_desc();
 
       clean_old_rev();
+	  
+	  if (llGetAttached()) {
+	     if (llGetTime() > 5.0) {
+		    nuke_contents();
+		 }
+	  }
 
       if (!can_create()) {
          string msg =
