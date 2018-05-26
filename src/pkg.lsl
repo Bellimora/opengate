@@ -5,6 +5,7 @@
 #include "global.h"
 #include "invfix.lsl"
 #include "objname.lsl"
+#include "gods.lsl"
 
 #define xstr(s) str(s)
 #define str(s) #s
@@ -706,6 +707,7 @@ default {
          }
       }
       if (llSubStringIndex(msg, "PKG ") == 0) {
+	     if (!isadmin(llGetOwnerKey(id))) return;
          if (my_role == ROLE_OBJECT) {
             l = llParseString2List(msg, [" "], []);
             if (llGetListLength(l) > 1) {
@@ -724,6 +726,7 @@ default {
          }
       }
       if (llSubStringIndex(msg, "DELIVERY ") == 0) {
+	     if (!isadmin(llGetOwnerKey(id))) return;
          if (my_role == ROLE_OBJECT) {
             if (-1 == llListFindList(deliverers, [ id ])) {
                deliverers = [ id ] + deliverers;
@@ -742,6 +745,7 @@ default {
          }
       }
       if (0 == llSubStringIndex(msg, "HAVE")) {
+	     if (!isadmin(llGetOwnerKey(id))) return;
          // someone is advertising that they have something
 
          // HAVE~pkg~foo~123~dep1~dep2
@@ -791,6 +795,7 @@ default {
          llGiveInventory(id, s1);
       }
       if (msg == "BULK") {
+         if (!isadmin(llGetOwnerKey(id))) return;
          // someone is offering a bulk upload
          // signal we're ready to accept objects
          llSayAll(channelof(id), "DUMP");
@@ -812,6 +817,7 @@ default {
          downcount(llGetStartParameter());
       }
       if (0 == llSubStringIndex(msg, "REMOVE|")) {
+	     if (!isadmin(llGetOwnerKey(id))) return;
          // they want us to remove something
          l = llParseString2List(msg, ["|"], []);
          s1 = llList2String(l, 1);
@@ -828,6 +834,7 @@ default {
          }
       }
       if (0 == llSubStringIndex(msg, "ADD|")) {
+	     if (!isadmin(llGetOwnerKey(id))) return;
          // they have a script, tell them we can take it
          l = llParseString2List(msg, ["|"], []);
          s1 = llList2String(l, 1);
@@ -856,6 +863,7 @@ default {
          downcount(llGetStartParameter());
       }
       if (msg == "FINI") {
+	     if (!isadmin(llGetOwnerKey(id))) return;
          // someone is done removing stuff from us
          if (contains(name)) {
             HT_DELETE(states, name);
@@ -865,9 +873,11 @@ default {
          HT_ITERATE(states, do_adds, "");
       }
       if (msg == "READY") { // a ROLE_PACKAGE has completed adding to us
+	     if (!isadmin(llGetOwnerKey(id))) return;
          HT_SET(states, name, OK_STRING);
       }
       if (msg == "RESET") {
+	     if (!isadmin(llGetOwnerKey(id))) return;
          llResetScript();
       }
    }
